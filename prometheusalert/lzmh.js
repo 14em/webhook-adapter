@@ -3,13 +3,13 @@ exports.template = function(body) {
     var alerts = body.alerts;
     var content = alerts.map(
         alert => {
-            return [`# Name:${alert.labels.alertname}`, "## Labels:"]
-            .concat(Object.entries(alert.labels).map(label => `<font color="comment">${label[0]}:</font>${label[1]}`))
-            .concat("## Annotations:")
-            .concat(Object.entries(alert.annotations).map(annotation => `<font color="comment">${annotation[0]}:</font>${annotation[1]}`))
+            return [`Name:${alert.labels.alertname}`]
+            .concat(Object.entries(alert.labels).map(label => `${label[0]}:${label[1]}`))
+            .concat("Annotations:")
+            .concat(Object.entries(alert.annotations).map(annotation => `${annotation[0]}:${annotation[1]}`))
             .join("\n")
         }
-    ).concat(`<font color="comment">Status:</font><font color="${body.status === 'firing' ? 'warning' : 'info'}">${body.status}</font>`).join("\n\n");
+    ).concat(`Status:${body.status}`).join("\n\n");
     return {
 
         type: "text",
